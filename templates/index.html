@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <!-- Your custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Top Headlines</h1>
+
+  {% if articles %}
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for article in articles %}
+          <div class="swiper-slide">
+            {% if article.urlToImage %}
+              <img src="{{ article.urlToImage }}" alt="Article image">
+            {% endif %}
+            <div class="card-content">
+              <h2><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h2>
+              <p>{{ article.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  {% else %}
+    <p>No articles found.</p>
+  {% endif %}
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Your custom JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
